@@ -19,6 +19,20 @@ app.config['CORS_HEADERS'] = 'Content-Type'
 
 endpoint_url = "https://query.wikidata.org/sparql"
 
+def find_entity_by_substring(substr:str):
+    result = []
+    for key in entity_dict.keys():
+        if(key.find(substr) != -1):
+            result.append(key)
+    return result
+
+def find_predicate_by_substring(substr:str):
+    result = []
+    for key in predicate_dict.keys():
+        if(key.find(substr) != -1):
+            result.append(key)
+    return result
+    
 @app.route('/autocomplete/entity')
 def entity_autocomplete():
     substr = str(request.args.get('term'))
