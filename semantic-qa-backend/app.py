@@ -19,6 +19,13 @@ app.config['CORS_HEADERS'] = 'Content-Type'
 
 endpoint_url = "https://query.wikidata.org/sparql"
 
+def get_results(endpoint_url, query):
+    user_agent = "WDQS-example Python/%s.%s" % (sys.version_info[0], sys.version_info[1])
+    sparql = SPARQLWrapper(endpoint_url, agent=user_agent)
+    sparql.setQuery(query)
+    sparql.setReturnFormat(JSON)
+    return sparql.query().convert()
+    
 def find_entity_by_substring(substr:str):
     result = []
     for key in entity_dict.keys():
@@ -32,6 +39,14 @@ def find_predicate_by_substring(substr:str):
         if(key.find(substr) != -1):
             result.append(key)
     return result
+    
+def extract_results_from_response(sparql_query:str):
+    results = get_results(endpoint_url, sparql_query)
+    response = []
+    for result in results["results"]["bindings"]:
+        print(result)
+        response.append(result)
+    return response
     
 @app.route('/autocomplete/entity')
 def entity_autocomplete():
