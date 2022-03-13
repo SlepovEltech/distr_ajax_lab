@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>jQuery UI</title>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="//ajax.aspnetcdn.com/ajax/jquery.ui/1.10.3/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.10.3/themes/sunny/jquery-ui.css">
+    <script type="text/javascript">
+        $(function() {    
+            $('#subjectInput').autocomplete({
+                source: "http://127.0.0.1:5000/autocomplete/entity",
+                delay: 1000
+            })
+
+            $('#objectInput').autocomplete({
+                source: "http://127.0.0.1:5000/autocomplete/entity",
+                delay: 1000
+            })
+
+            $('#predicateInput').autocomplete({
+                source: "http://127.0.0.1:5000/autocomplete/predicate",
+                delay: 1000
+            })
+        });
+    </script>
+</head>
+<body>
+    <h1>Construct your Semantic Query</h1>
+    <form action="http://127.0.0.1:5000/distributed" method="POST" >
+        <input type="text" id="subjectInput" name="subjectInput"/>
+        <input type="text" id="predicateInput" name="predicateInput"/>
+        <input type="text" id="objectInput" name="objectInput"/>
+        <input type="submit">
+    </form>
+       
+</body>
+</html>
